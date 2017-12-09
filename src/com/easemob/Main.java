@@ -1,21 +1,18 @@
 package com.easemob;
 
 
-import org.fusesource.jansi.Ansi;
-
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Scanner;
 import java.util.UUID;
 
 import static com.easemob.ConversionUtils.bytebuffer;
-import static org.fusesource.jansi.Ansi.ansi;
 
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Ansi render = ansi().eraseScreen().render("@|green 请输入数字进行选择>>>>>|@  @|red 1:16进制转uuid|@ @|red 2:uuid转16进制|@ @|red 999:退出|@");
-        System.out.println(render);
+        String tip = "请输入数字进行选择: 1(16进制转uuid),2(uuid转16进制),3(999:退出)";
+        System.out.println(tip);
 
         while (in.hasNext()) {
             try {
@@ -45,12 +42,13 @@ public class Main {
                     case 999:
                         break;
                 }
+                if (type == 999) break;
             } catch (Exception e) {
-                System.err.println(ansi().eraseScreen().render("@|red 无效输入，请重试|@"));
+                System.err.println("无效输入，请重试");
                 in.nextLine();
             }
 
-            System.out.println(render);
+            System.out.println(tip);
         }
         System.out.println("正在退出...");
         System.exit(0);
